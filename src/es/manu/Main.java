@@ -6,8 +6,8 @@ public class Main {
 
     public static void main(String[] args) {
         Scanner entrada = new Scanner(System.in);
-        int tamano;
-        char[] tablero;
+        int tamano, opcion , resultado;
+        char[] bombas;
 
         do {
             System.out.print("Dime el tamaño del buscaminas [5 a 10]: ");
@@ -15,9 +15,20 @@ public class Main {
         } while (tamano >= 10 || tamano <= 5);
         System.out.println();
 
-        tablero = crearTablero(tamano);
+        bombas = crearTablero(tamano);
 
-        crearTabla(tablero);
+        crearTabla(bombas);
+
+        do{
+            System.out.println("¿Donde crees que hay bomba? (0 para terminar): ");
+            opcion = entrada.nextInt();
+
+            resultado = comprobarPosicion(opcion);
+            /* resultado = 0 ha terminado
+            resultado = 1 ha acertado
+            resultado 2 ha dado a bomba
+            */
+        } while (opcion != 0 && resultado != 2);
 
     }
 
@@ -81,6 +92,12 @@ public class Main {
             System.out.print("---------");
         }
         System.out.println();
+
+    }
+
+    private static int comprobarPosicion (int posicion) {
+        if (posicion == 0) return 0;
+
 
     }
 
