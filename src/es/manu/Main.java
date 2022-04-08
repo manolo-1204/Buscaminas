@@ -7,78 +7,81 @@ public class Main {
     public static void main(String[] args) {
         Scanner entrada = new Scanner(System.in);
         int tamano;
-        char[] tabla;
+        char[] tablero;
 
-        System.out.println("Dime el tamaño del buscaminas [5 a 20]: ");
-        tamano = entrada.nextInt();
+        do {
+            System.out.print("Dime el tamaño del buscaminas [5 a 10]: ");
+            tamano = entrada.nextInt();
+        } while (tamano >= 10 || tamano <= 5);
+        System.out.println();
 
-        tabla = crearTablero(tamano);
+        tablero = crearTablero(tamano);
 
-        System.out.println(tabla);
+        crearTabla(tablero);
 
     }
 
     private static char[] crearTablero (int tamano) {
         char[] tablero = new char[tamano];
-        int bombas;
+        int bombas, contador;
+
         for (int i = 0; i < tamano; i++) {
             bombas = (int) (Math.random() * 2);
             if (bombas != 0) {
-                tablero[i] += 0;
+                tablero[i] = '0';
             } else {
-                tablero[i] += '*';
+                tablero[i] = '*';
             }
         }
 
         for (int i = 0; i < tamano; i++) {
-            int contador = 0;
+            contador = 0;
             if (tablero[i] != '*') {
-                if (tablero[i - 1] == '*' && i != 0) {
+                if (i != 0  && tablero[i - 1] == '*') {
                     contador++;
                 }
-                if (tablero[i + 1] == '*' && i != tamano - 1) {
+                if (i != tamano - 1 && tablero[i + 1] == '*') {
                     contador++;
                 }
-                tablero[i] = (char) contador;
+                tablero[i] = String.valueOf(contador).charAt(0);
             }
         }
         return tablero;
     }
 
-    /*private static void  (int tamano){
-        for (int i = 0; i < tamano; i++) {
-            for (int j = 0; j < 4; j ++) {
-                if ()
-                System.out.print("+");
-            }
-        }*/
+    private static void crearTabla (char [] bombas) {
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-        /*for (int i = 0; i < tamano; i++){
-            for (int j = 0; j < 4; j++) {
-                for (int k = 0; k < 6; k++) {
-                    if (k == 0 || k == 5) {
-                        System.out.print("|");
-                    } else if (j == 0 || (i == tamano - 1 && j == 3)) {
-                        System.out.print("--");
-                    } else {
-                        System.out.print("  ");
-                    }
-                }
-                System.out.println();
-            }
+        for (int i = 0; i < bombas.length; i++) {
+            System.out.print(" -- " + (i + 1) + " -- ");
         }
-    }*/
+        System.out.println();
+        System.out.println();
+
+        for (int i = 0; i < bombas.length; i++) {
+            System.out.print("---------");
+        }
+        System.out.println();
+
+        for (int i = 0; i < bombas.length; i++) {
+            System.out.print("|        ");
+        }
+        System.out.println("|");
+
+        for (int i = 0; i < bombas.length; i++) {
+            System.out.print("|    " + bombas[i] + "   ");
+        }
+        System.out.println("|");
+
+        for (int i = 0; i < bombas.length; i++) {
+            System.out.print("|        ");
+        }
+        System.out.println("|");
+
+        for (int i = 0; i < bombas.length; i++) {
+            System.out.print("---------");
+        }
+        System.out.println();
+
+    }
+
 }
