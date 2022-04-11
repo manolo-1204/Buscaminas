@@ -7,28 +7,31 @@ public class Main {
     public static void main(String[] args) {
         Scanner entrada = new Scanner(System.in);
         int tamano, opcion , resultado;
-        char[] bombas;
+        char[] bombas, casillas;
 
         do {
             System.out.print("Dime el tamaño del buscaminas [5 a 10]: ");
             tamano = entrada.nextInt();
-        } while (tamano >= 10 || tamano <= 5);
+        } while (tamano > 10 || tamano < 5);
         System.out.println();
+        casillas = new char[tamano];
 
         bombas = crearTablero(tamano);
+        crearTablaVacia(casillas);
 
         crearTabla(bombas);
 
         do{
-            System.out.println("¿Donde crees que hay bomba? (0 para terminar): ");
+            System.out.print("¿Donde crees que hay bomba? (0 para terminar): ");
             opcion = entrada.nextInt();
 
-            resultado = comprobarPosicion(opcion);
+            resultado = comprobarPosicion(opcion, bombas);
             /* resultado = 0 ha terminado
             resultado = 1 ha acertado
             resultado 2 ha dado a bomba
             */
-        } while (opcion != 0 && resultado != 2);
+            System.out.println();
+        } while (opcion != 0 || resultado != 2);
 
     }
 
@@ -94,10 +97,51 @@ public class Main {
         System.out.println();
 
     }
+    private static void crearTablaVacia (char [] bombas) {
 
-    private static int comprobarPosicion (int posicion) {
+        for (int i = 0; i < bombas.length; i++) {
+            System.out.print(" -- " + (i + 1) + " -- ");
+        }
+        System.out.println();
+        System.out.println();
+
+        for (int i = 0; i < bombas.length; i++) {
+            System.out.print("---------");
+        }
+        System.out.println();
+
+        for (int i = 0; i < bombas.length; i++) {
+            System.out.print("|        ");
+        }
+        System.out.println("|");
+
+        for (int i = 0; i < bombas.length; i++) {
+            System.out.print("|    ·   ");
+        }
+        System.out.println("|");
+
+        for (int i = 0; i < bombas.length; i++) {
+            System.out.print("|        ");
+        }
+        System.out.println("|");
+
+        for (int i = 0; i < bombas.length; i++) {
+            System.out.print("---------");
+        }
+        System.out.println();
+
+    }
+
+    private static int comprobarPosicion (int posicion, char[] bombas) {
+
         if (posicion == 0) return 0;
 
+
+        if (bombas[posicion - 1] != '*') {
+            return 1;
+        } else  {
+            return 2;
+        }
 
     }
 
