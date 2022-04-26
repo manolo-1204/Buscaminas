@@ -30,10 +30,11 @@ public class Main {
             resultado = 1 ha acertado
             resultado 2 ha dado a bomba
             */
-            System.out.println("ahi no bomba");
             if (resultado == 2) {
                 opcion = 0;
                 System.out.println("has pillaou bombica");
+            } else {
+                System.out.println("ahi no bomba");
             }
         } while (opcion != 0);
 
