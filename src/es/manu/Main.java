@@ -30,8 +30,12 @@ public class Main {
             resultado = 1 ha acertado
             resultado 2 ha dado a bomba
             */
-            System.out.println();
-        } while (opcion != 0 || resultado != 2);
+            System.out.println("ahi no bomba");
+            if (resultado == 2) {
+                opcion = 0;
+                System.out.println("has pillaou bombica");
+            }
+        } while (opcion != 0);
 
     }
 
@@ -136,11 +140,10 @@ public class Main {
 
         if (posicion == 0) return 0;
 
-
-        if (bombas[posicion - 1] != '*') {
-            return 1;
-        } else  {
+        if (bombas[posicion - 1] == '*') {
             return 2;
+        } else  {
+            return 1;
         }
 
     }
