@@ -1,12 +1,13 @@
 package es.manu;
 
+import java.util.Arrays;
 import java.util.Scanner;
 
 public class Main {
 
     public static void main(String[] args) {
         Scanner entrada = new Scanner(System.in);
-        int tamano, opcion , resultado;
+        int tamano, opcion , resultado, digref = 0;
         char[] bombas, casillas;
 
         do {
@@ -16,13 +17,25 @@ public class Main {
         System.out.println();
         casillas = new char[tamano];
 
+        for (int i = 0; i < casillas.length; i++) {
+            casillas[i] = '·';
+        }
+
         bombas = crearTablero(tamano);
-        crearTablaVacia(casillas);
 
         crearTabla(bombas);
 
+        for (int i = 0; i < bombas.length; i++) {
+            if (bombas[i] != '*') {
+                digref++;
+            }
+        }
+
         do{
-            System.out.print("¿Donde crees que hay bomba? (0 para terminar): ");
+            crearTablaVacia(casillas);
+
+            System.out.println("Quedan " + digref + " bombas.");
+            System.out.print("¿Donde crees que no hay bomba? (0 para terminar): ");
             opcion = entrada.nextInt();
 
             resultado = comprobarPosicion(opcion, bombas);
@@ -30,13 +43,23 @@ public class Main {
             resultado = 1 ha acertado
             resultado 2 ha dado a bomba
             */
+
+            System.out.println();
             if (resultado == 2) {
                 opcion = 0;
                 System.out.println("has pillaou bombica");
+                crearTabla(bombas);
             } else {
                 System.out.println("ahi no bomba");
+                if (casillas [opcion - 1] == '·') digref--;
+                casillas[opcion - 1] = bombas [opcion - 1];
             }
-        } while (opcion != 0);
+            System.out.println();
+        } while (opcion != 0 && digref != 0);
+
+        if (digref == 0) {
+            System.out.println("Enhorabuena, has ganau");
+        }
 
     }
 
@@ -102,35 +125,35 @@ public class Main {
         System.out.println();
 
     }
-    private static void crearTablaVacia (char [] bombas) {
+    private static void crearTablaVacia (char [] casillas) {
 
-        for (int i = 0; i < bombas.length; i++) {
+        for (int i = 0; i < casillas.length; i++) {
             System.out.print(" -- " + (i + 1) + " -- ");
         }
         System.out.println();
         System.out.println();
 
-        for (int i = 0; i < bombas.length; i++) {
+        for (int i = 0; i < casillas.length; i++) {
             System.out.print("---------");
         }
         System.out.println();
 
-        for (int i = 0; i < bombas.length; i++) {
+        for (int i = 0; i < casillas.length; i++) {
             System.out.print("|        ");
         }
         System.out.println("|");
 
-        for (int i = 0; i < bombas.length; i++) {
-            System.out.print("|    ·   ");
+        for (int i = 0; i < casillas.length; i++) {
+            System.out.print("|    " + casillas[i] + "   ");
         }
         System.out.println("|");
 
-        for (int i = 0; i < bombas.length; i++) {
+        for (int i = 0; i < casillas.length; i++) {
             System.out.print("|        ");
         }
         System.out.println("|");
 
-        for (int i = 0; i < bombas.length; i++) {
+        for (int i = 0; i < casillas.length; i++) {
             System.out.print("---------");
         }
         System.out.println();
