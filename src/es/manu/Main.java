@@ -7,7 +7,7 @@ public class Main {
 
     public static void main(String[] args) {
         Scanner entrada = new Scanner(System.in);
-        int tamano, opcion , resultado, digref = 0;
+        int tamano, opcion , resultado, contador = 0;
         char[] bombas, casillas;
 
         do {
@@ -23,22 +23,23 @@ public class Main {
 
         bombas = crearTablero(tamano);
 
-        crearTabla(bombas);
+        //crearTabla(bombas);  //Tabla destapada
 
         for (int i = 0; i < bombas.length; i++) {
             if (bombas[i] != '*') {
-                digref++;
+                contador++;
             }
         }
 
         do{
             crearTablaVacia(casillas);
 
-            System.out.println("Quedan " + digref + " bombas.");
+            System.out.println("Quedan " + contador + " bombas.");
             System.out.print("¿Donde crees que no hay bomba? (0 para terminar): ");
             opcion = entrada.nextInt();
 
-            resultado = comprobarPosicion(opcion, bombas);
+            if (opcion != 0) {
+                comprobarPosicion(opcion, bombas);
             /* resultado = 0 ha terminado
             resultado = 1 ha acertado
             resultado 2 ha dado a bomba
@@ -51,13 +52,13 @@ public class Main {
                 crearTabla(bombas);
             } else {
                 System.out.println("ahi no bomba");
-                if (casillas [opcion - 1] == '·') digref--;
+                if (casillas [opcion - 1] == '·') contador--;
                 casillas[opcion - 1] = bombas [opcion - 1];
             }
             System.out.println();
-        } while (opcion != 0 && digref != 0);
+        } while (opcion != 0 && contador != 0);
 
-        if (digref == 0) {
+        if (contador == 0) {
             System.out.println("Enhorabuena, has ganau");
         }
 
